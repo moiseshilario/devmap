@@ -93,6 +93,8 @@ class Map extends Component {
         // onClick={this.handleMapClick}
         captureClick
         key={login}
+        offsetTop={-25}
+        offsetLeft={-25}
       >
         <UserMarker alt="avatar" src={avatar} />
       </Marker>
