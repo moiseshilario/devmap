@@ -7,25 +7,41 @@ import { Creators as UserActions } from '../../store/ducks/users';
 
 import { AsideContainer, Separator } from './styles';
 
-const Aside = ({ users, onRemoveUser }) => (
+const Aside = ({ users, onRemoveUser, onLocateUser }) => (
   <AsideContainer>
     <h1>Users</h1>
     <ul>
-      {users.map((user, index) => (
-        <Fragment key={user.login}>
-          <li className="user">
-            <img src={user.avatar} alt={`profile-${user.login}`} />
-            <div className="user__info">
-              <p className="user__name">{user.name}</p>
-              <p className="user__login">{user.login}</p>
-            </div>
-            <button type="button" className="close-button" onClick={() => onRemoveUser(user.login)}>
-              <span>+</span>
-            </button>
-          </li>
-          {index < users.length - 1 && <Separator />}
-        </Fragment>
-      ))}
+      {users.length > 0 ? (
+        users.map((user, index) => (
+          <Fragment key={user.login}>
+            <li className="user">
+              <img src={user.avatar} alt={`profile-${user.login}`} />
+              <div className="user__info">
+                <p className="user__name">{user.name}</p>
+                <p className="user__login">{user.login}</p>
+              </div>
+              <button
+                type="button"
+                className="close-button"
+                onClick={() => onRemoveUser(user.login)}
+              >
+                <i className="fas fa-times" />
+              </button>
+
+              <button
+                type="button"
+                className="locate-button"
+                onClick={() => onLocateUser(user.position)}
+              >
+                <i className="fas fa-chevron-right" />
+              </button>
+            </li>
+            {index < users.length - 1 && <Separator />}
+          </Fragment>
+        ))
+      ) : (
+        <p>Click on the map to add a user</p>
+      )}
     </ul>
   </AsideContainer>
 );
@@ -39,6 +55,7 @@ Aside.propTypes = {
     }),
   ).isRequired,
   onRemoveUser: PropTypes.func.isRequired,
+  onLocateUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import MapGL, { Marker } from 'react-map-gl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import MapGL, { Marker, FlyToInterpolator } from 'react-map-gl';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -25,6 +25,8 @@ class Map extends Component {
       latitude: -23.5439948,
       longitude: -46.6065452,
       zoom: 14,
+      transitionDuration: 500,
+      transitionInterpolator: new FlyToInterpolator(),
     },
     position: {
       latitude: null,
@@ -54,6 +56,16 @@ class Map extends Component {
 
   onRemoveUser = (login) => {
     this.props.removeUser(login);
+  };
+
+  onLocateUser = ({ latitude, longitude }) => {
+    this.setState(previousState => ({
+      viewport: {
+        ...previousState.viewport,
+        latitude,
+        longitude,
+      },
+    }));
   };
 
   resize = () => {
@@ -107,7 +119,7 @@ class Map extends Component {
     return (
       <div>
         <ToastContainer autoClose={2000} />
-        <Aside onRemoveUser={this.onRemoveUser} />
+        <Aside onRemoveUser={this.onRemoveUser} onLocateUser={this.onLocateUser} />
         {showModal && <InputModal onSubmit={this.onSubmit} onCancel={this.onCancel} />}
         <MapGL
           {...viewport}

@@ -12,17 +12,19 @@ export const AsideContainer = styled.div`
   background: #fff;
   border-radius: 5px;
   box-shadow: 0px 0px 5px 1px #222;
+  text-align: center;
+  color: #555;
 
   h1 {
     margin: 0;
     margin-bottom: 10px;
     font-size: 18px;
-    color: #555;
-    text-align: center;
   }
 
   .user {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px 0;
     position: relative;
 
@@ -37,6 +39,8 @@ export const AsideContainer = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
+      flex: 1;
+      align-items: flex-start;
     }
 
     &__name {
@@ -52,21 +56,23 @@ export const AsideContainer = styled.div`
     }
   }
 
-  .close-button {
+  button {
     display: flex;
     align-content: center;
     justify-content: center;
-    color: #c00;
-    font-size: 25px;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    font-size: 16px;
     border: 0;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 
-    span {
-      transform: rotate(45deg);
+    &.close-button {
+      color: #c00;
+      margin-right: 12px;
+    }
+
+    &.locate-button {
+      color: #777;
     }
   }
 `;
