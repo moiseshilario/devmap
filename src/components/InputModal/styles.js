@@ -1,11 +1,19 @@
 import styled from 'styled-components';
 
+export const ModalContainer = styled.div`
+  position: absolute;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
 export const Modal = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9;
+  z-index: 999;
 
   padding: 15px;
   width: 270px;
