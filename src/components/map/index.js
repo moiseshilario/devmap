@@ -13,12 +13,12 @@ import Aside from '../Aside';
 import InputModal from '../InputModal';
 
 import { Creators as UserActions } from '../../store/ducks/users';
+import { Creators as ModalActions } from '../../store/ducks/modal';
 
 import mapboxConfig from '../../config/mapbox';
 
 class Map extends Component {
   state = {
-    showModal: false,
     viewport: {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -47,11 +47,10 @@ class Map extends Component {
     e.preventDefault();
 
     this.props.addUserRequest(input, this.state.position);
-    this.setState({ showModal: false });
   };
 
   onCancel = () => {
-    this.setState({ showModal: false });
+    this.props.hideModal();
   };
 
   onRemoveUser = (login) => {
@@ -82,9 +81,8 @@ class Map extends Component {
     const [longitude, latitude] = e.lngLat;
 
     // alert(`Latitude: ${latitude} \nLongitude: ${longitude}`);
-
+    this.props.showModal();
     this.setState({
-      showModal: true,
       position: {
         latitude,
         longitude,
@@ -114,13 +112,12 @@ class Map extends Component {
   };
 
   render() {
-    const { showModal, viewport } = this.state;
-    const { users } = this.props;
+    const { viewport } = this.state;
+    const { users, modalVisible } = this.props;
     return (
       <div>
-        <ToastContainer autoClose={2000} />
         <Aside onRemoveUser={this.onRemoveUser} onLocateUser={this.onLocateUser} />
-        {showModal && <InputModal onSubmit={this.onSubmit} onCancel={this.onCancel} />}
+        {modalVisible && <InputModal onSubmit={this.onSubmit} onCancel={this.onCancel} />}
         <MapGL
           {...viewport}
           onClick={this.handleMapClick}
@@ -137,15 +134,25 @@ class Map extends Component {
 
 Map.propTypes = {
   addUserRequest: PropTypes.func.isRequired,
+  modalVisible: PropTypes.bool.isRequired,
+  showModal: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
   removeUser: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({
   users: state.users.users,
+  modalVisible: state.modal.visible,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(UserActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    ...UserActions,
+    ...ModalActions,
+  },
+  dispatch,
+);
 
 export default connect(
   mapStateToProps,

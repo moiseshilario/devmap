@@ -3,10 +3,15 @@ import { toast } from 'react-toastify';
 import api from '../../services/api';
 
 import { Creators as UserActions } from '../ducks/users';
+import { Creators as ModalActions } from '../ducks/modal';
 
 export function* addUser(action) {
   toast.configure({
     position: toast.POSITION.TOP_RIGHT,
+    style: {
+      fontSize: 14,
+    },
+    autoClose: 3000,
   });
 
   try {
@@ -27,6 +32,7 @@ export function* addUser(action) {
       };
 
       yield put(UserActions.addUserSuccess(userData));
+      yield put(ModalActions.hideModal());
 
       toast.success('User added successfuly!');
     }
