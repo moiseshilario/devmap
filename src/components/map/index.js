@@ -3,8 +3,8 @@ import MapGL, { Marker } from 'react-map-gl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { UserMarker } from './styles';
@@ -106,7 +106,7 @@ class Map extends Component {
     const { users } = this.props;
     return (
       <div>
-        {/* <ToastContainer /> */}
+        <ToastContainer autoClose={2000} />
         <Aside onRemoveUser={this.onRemoveUser} />
         {showModal && <InputModal onSubmit={this.onSubmit} onCancel={this.onCancel} />}
         <MapGL
