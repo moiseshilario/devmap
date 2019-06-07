@@ -2,10 +2,6 @@ import React from 'react';
 
 import Map from '../../components/Map';
 
-const Main = () => (
-  <div>
-    <Map />
-  </div>
-);
+const Main = () => <Map />;
 
 export default Main;
