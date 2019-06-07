@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const AsideContainer = styled.div`
   position: absolute;
+  overflow: scroll;
   top: 20px;
   left: 20px;
   z-index: 9;
