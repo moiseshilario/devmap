@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import MapGL, { Marker, FlyToInterpolator } from 'react-map-gl';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
